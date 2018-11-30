@@ -1,49 +1,41 @@
 'use strict';
+
+
+
+
 const products = require('./products.interface');
+
 class Products {
 	constructor() {
 		displayProducts();
-		leastPriceWithThisName('Stamps and Flowers - Amethyst')
+		
+		const productName = 'Stamps and Flowers - Amethyst';
+		return leastPriceWithThisName(productName);
 	}
 }
 
 function displayProducts() {
-	let productNamePrice = [];
-	products.map((product,index)=>{
-		productNamePrice.push({
+	const productNamePrice = products.map(product => {
+		return {
 			productName: product.productName,
 			productPrice: product.productPrice
-		})
+		}
 	})
 	console.log('products', productNamePrice); // productNamePrice contains only 'productName' and 'productPrice'
-	
-	console.log("--------------------------------------------------------------------------------------")
 }
 
 
 function leastPriceWithThisName(name) {
-
-	const productsArray = products.filter(product => product.productName == name);
-	let leastValue = productsArray[0].productPrice; //let suppose we have least product price 
-	let product = productsArray[0]; // and also suppose obj with least price
-	productsArray.forEach((p, i) => {
-		if(leastValue > p.productPrice){
-			leastValue = p.productPrice
-			 product = p;
+	const filteredProducts= products.filter(product => product.productName == name);
+	let leastPriceProduct = filteredProducts[0]; // consider first product having least price
+	filteredProducts.forEach(p => {
+		if (p.productPrice < leastPriceProduct.productPrice) {
+			leastPriceProduct = p;
 		}
 	});
-	console.log('products with least price', product);  //this is the obj that have least price of product
-	
+	console.log('products with least price', leastPriceProduct);  //this is the obj that have least price of product 
+	return leastPriceProduct;
 }
-
-
-
-
-
-
-
-
-
 
 // Do not edit below this line
 const product = new Products();
